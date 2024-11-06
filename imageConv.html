@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dotted Effect with p5.js</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: black;
+      }
+      canvas {
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- p5.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+    <!-- the sketch code -->
+    <script>
+      let img;
+
+      function preload() {
+        img = loadImage("potrait1.jpg"); // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbIUDA_pct4Rlq8LANnoLjtPhBK666h3Zopw&s"
+      }
+
+      function setup() {
+        createCanvas(500, 500);
+        img.resize(500, 500); // Resize to fit canvas
+        noLoop();
+      }
+
+      function draw() {
+        background(0);
+        img.loadPixels();
+        let dotSize = 4; // Adjust for bigger or smaller dots
+
+        for (let y = 0; y < img.height; y += dotSize) {
+          for (let x = 0; x < img.width; x += dotSize) {
+            let index = (x + y * img.width) * 4;
+            let r = img.pixels[index];
+            let brightness = (r / 255) * dotSize; // Calculate brightness
+
+            fill(255); // White dots
+            noStroke();
+            ellipse(x, y, brightness, brightness); // Draw dot based on brightness
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
